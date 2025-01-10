@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f3f6fc;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: #333;
+}
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white; 
+    padding: 15px 20px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+header img {
+    height: 60px;
+}
+header h1 {
+    font-size: 1.8em;
+    font-family: 'Georgia', serif;
+    color: rgb(31, 153, 190);
+    flex: 1;
+    text-align: center;
+}
+.profile-container {
+    position: relative;
+}
+.profile-icon {
+    font-size: 1.5em;
+    cursor: pointer;
+    border: 2px solid #333;
+    border-radius: 50%;
+    padding: 5px;
+    background: #eee;
+}
+.dropdown {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    display: none;
+    width: 150px;
+    text-align: left;
+    z-index: 100;
+}
+.dropdown a, .dropdown span {
+    display: block;
+    padding: 10px 15px;
+    font-size: 14px;
+    text-decoration: none;
+    color: #333;
+}
+.dropdown a:hover {
+    background-color: #f0f0f0;
+}
+.dropdown span {
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+}
+.profile-container:hover .dropdown {
+    display: block;
+}
+.container {
+    display: flex;
+    flex: 1;
+    margin-top: 20px; 
+}
+.sidebar {
+    width: 250px;
+    background: #0047ab;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1);
+}
+.sidebar h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 10px;
+    width: 80%;
+    text-align: center;
+}
+.nav-links {
+    width: 100%;
+}
+.nav-links a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.3s;
+    text-align: left;
+    border-radius: 8px;
+}
+.nav-links a:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+.nav-links a i {
+    font-size: 18px;
+    background: #fff;
+    color: #0047ab;
+    padding: 8px;
+    border-radius: 50%;
+}
+.main-content1 {
+    flex: 1;
+    padding: 30px;
+    background: #fff;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.main-content h1 {
+    font-size: 2.5em;
+    color: #0047ab;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+.main-content p {
+    font-size: 18px;
+    color: #555;
+    text-align: center;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+.graph-container {
+    width: 100%;
+    max-width: 1000px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    text-align: center;
+}
+.graph-container h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.graph-container select {
+    margin-bottom: 15px;
+    padding: 8px;
+    width: 20%;
+    border-radius: 5px;
+    font-size: 16px;
+}
+canvas {
+    width: 100% !important;
+    height: 320px !important;
+}
+
+.chart-container {
+    width: 80%; /* Adjust width as needed */
+    margin: 30px auto; /* This will center it horizontally */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 30px;
+    flex-wrap: wrap; /* Allow content to wrap */
+}
+.pie-chart {
+    width: 50%; /* Adjust width to fit in container */
+    height: 400px;
+    margin-top: 20px; /* Add some spacing above the chart */
+}
+.progress-scale {
+    width: 50%; /* Adjust width */
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+}
+.progress-scale h3 {
+    font-size: 18px;
+    color: #444;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.progress-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background-color: #f8f9fa;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+.progress-item span {
+    font-weight: bold;
+    color: #333;
+}
+.progress-bar-container {
+    width: 60%;
+    height: 12px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    margin-left: 10px;
+    position: relative;
+}
+.progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-radius: 5px;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 40px;
+}
+
+.actions div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.actions button {
+    background: #0047ab;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    width: 180px;
+    margin-top: 10px;
+}
+
+.actions button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+    </style>
+
+</head>
+<body>
+    <header>
+        <img src="CSS/logo1.jpg" alt="Company Logo">
+        <h1>Codeplux Technologies</h1>
+        <div class="profile-container">
+            <div class="profile-icon">&#128100;</div>
+            <div class="dropdown">
+                <span>Admin Name</span>
+                <a href="profile.html">Profile</a>
+                <a href="logout.html">Logout</a>
+            </div>
+        </div>
+    </header>
+    <div class="container"> 
+        <div class="sidebar">
+            <h2><a href="Admin_dashboard.html" style="text-decoration: none; color: white;">Admin Panel</a></h2>
+            <div class="nav-links">
+                <a href="attendance.html"><i>&#128197;</i> Attendance</a>
+                <a href="employees.html"><i>&#128101;</i> Employees</a>
+            </div>
+        </div>
+        <div class="main-content1">
+            <h1>Welcome to the Admin Dashboard</h1>
+            <p>Access all the tools you need to manage your organization efficiently. Navigate through the sections using the sidebar.</p><br>
+
+           
+            <div class="actions">
+                <div>
+                    <div class="datetime" id="dateTimeIn">--:--</div>
+                    <button id="punchIn" onclick="recordPunch('in')">Punch In</button>
+                </div>
+                <div>
+                    <div class="datetime" id="dateTimeOut">--:--</div>
+                    <button id="punchOut" onclick="recordPunch('out')" disabled>Punch Out</button>
+                </div>
+            </div><br>
+
+            
+
+            
+            
+            <!-- Graph Section -->
+            <div class="graph-container">
+                <h3>Employee Working Hours Progress</h3>
+                <label for="departmentSelect">Filter by Department:</label>
+                <select id="departmentSelect">
+                    <option value="Development">Development</option>
+                    <option value="Testing">Testing</option>
+                    <option value="HR">HR</option>
+                </select>
+                <canvas id="employeeGraph"></canvas>
+            </div>
+
+            <!-- Pie Chart and Progress Scale -->
+            <div class="chart-container">
+                <div class="pie-chart">
+                    <canvas id="departmentProgressPieChart"></canvas>
+                </div>
+
+                <div class="progress-scale">
+                    <h3>Department Progress Overview</h3>
+                    <div class="progress-item">
+                        <span>HR Department</span>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 75%; background-color: #28a745;"></div>
+                        </div>
+                        <span>75%</span>
+                    </div>
+                    <div class="progress-item">
+                        <span>Development Department</span>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 60%; background-color: #007bff;"></div>
+                        </div>
+                        <span>60%</span>
+                    </div>
+                    <div class="progress-item">
+                        <span>Testing Department</span>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" style="width: 85%; background-color: #ffc107;"></div>
+                        </div>
+                        <span>85%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer style="background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0)); color: white; text-align: center; padding: 15px 0; font-size: 14px; margin-top: auto; width: 100%; box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.2);">
+        &copy; 2025 Codeplux Technologies. All rights reserved.
+    </footer>
+
+    <!-- Chart.js Script -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const departmentData = {
+            Development: {
+                labels: ['John', 'Mike', 'Anna', 'Emily', 'Daniel'],
+                data: [40, 45, 42, 38, 44]
+            },
+            Testing: {
+                labels: ['Sara', 'Steve', 'Linda', 'Kevin', 'Alice'],
+                data: [35, 36, 38, 33, 37]
+            },
+            HR: {
+                labels: ['Tom', 'James', 'Jack', 'Laura', 'Emma'],
+                data: [40, 50, 47, 41, 45]
+            }
+        };
+
+        const barCtx = document.getElementById('employeeGraph').getContext('2d');
+        let employeeGraph = new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: departmentData.Development.labels,
+                datasets: [{
+                    label: 'Working Hours',
+                    data: departmentData.Development.data,
+                    backgroundColor: '#007bff',
+                    borderColor: '#007bff',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Employees'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Working Hours'
+                        },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        document.getElementById('departmentSelect').addEventListener('change', function () {
+            const selectedDepartment = this.value;
+            employeeGraph.data.labels = departmentData[selectedDepartment].labels;
+            employeeGraph.data.datasets[0].data = departmentData[selectedDepartment].data;
+            employeeGraph.update();
+        });
+
+        const pieCtx = document.getElementById('departmentProgressPieChart').getContext('2d');
+        const departmentProgressPieChart = new Chart(pieCtx, {
+            type: 'pie',
+            data: {
+                labels: ['HR Department', 'Development Department', 'Testing Department'],
+                datasets: [{
+                    label: 'Department Progress',
+                    data: [75, 60, 85],
+                    backgroundColor: ['#28a745', '#007bff', '#ffc107'],
+                    borderColor: '#fff',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                return context.label + ': ' + context.raw + '% Progress';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+
+        function recordPunch(action) {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    if (action === 'in') {
+        document.getElementById('dateTimeIn').textContent = timeString;
+        document.getElementById('punchIn').disabled = true;
+        document.getElementById('punchOut').disabled = false;
+    } else if (action === 'out') {
+        document.getElementById('dateTimeOut').textContent = timeString;
+        document.getElementById('punchOut').disabled = true;
+        alert('Punch out recorded successfully!');
+    }
+}
+
+    </script>
+</body>
+</html>

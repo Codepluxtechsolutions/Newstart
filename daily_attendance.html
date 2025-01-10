@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f3f6fc;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #333;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white; 
+            padding: 15px 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        header img {
+            height: 60px;
+        }
+        header h1 {
+            font-size: 1.8em;
+            font-family: 'Georgia', serif;
+            color: rgb(31, 153, 190);
+            flex: 1;
+            text-align: center;
+        }
+        .profile-container {
+            position: relative;
+        }
+        .profile-icon {
+            font-size: 1.5em;
+            cursor: pointer;
+            border: 2px solid #333;
+            border-radius: 50%;
+            padding: 5px;
+            background: #eee;
+        }
+        .dropdown {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            display: none;
+            width: 150px;
+            text-align: left;
+            z-index: 100;
+        }
+        .dropdown a, .dropdown span {
+            display: block;
+            padding: 10px 15px;
+            font-size: 14px;
+            text-decoration: none;
+            color: #333;
+        }
+        .dropdown a:hover {
+            background-color: #f0f0f0;
+        }
+        .dropdown span {
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+        }
+        .profile-container:hover .dropdown {
+            display: block;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+            margin-top: 20px; 
+            width: 100%; /* Ensures the container takes full width */
+        }
+        .sidebar {
+            width: 250px;
+            background: #0047ab;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1);
+            flex-shrink: 0; /* Prevents the sidebar from shrinking */
+        }
+        .sidebar h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #fff;
+            padding-bottom: 10px;
+            width: 80%;
+            text-align: center;
+        }
+        .nav-links {
+            width: 100%;
+        }
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s;
+            text-align: left;
+            border-radius: 8px;
+        }
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .nav-links a i {
+            font-size: 18px;
+            background: #fff;
+            color: #0047ab;
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #0047ab;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #dddddd;
+        }
+        th {
+            background-color: #0047ab;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .status {
+            font-weight: bold;
+            color: green;
+        }
+        .status.absent {
+            color: red;
+        }
+        .status.present {
+            color: green;
+        }
+        .status.inactive {
+            color: gray;
+        }
+
+        .buttons-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .btn {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #0047ab;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin: 0 10px;
+        }
+        .btn:hover {
+            background-color: #00368f;
+        }
+        .action-btn {
+            padding: 5px 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .action-btn:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        /* Style for main content container */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-left: 20px; /* Adds space between sidebar and main content */
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <img src="CSS/logo1.jpg" alt="Company Logo">
+        <h1>Codeplux Technologies</h1>
+        <div class="profile-container">
+            <div class="profile-icon">&#128100;</div>
+            <div class="dropdown">
+                <span>Admin Name</span>
+                <a href="profile.html">Profile</a>
+                <a href="logout.html">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="sidebar">
+            <h2><a href="Admin_dashboard.html" style="text-decoration: none; color: white;">Admin Panel</a></h2>
+            <div class="nav-links">
+                <a href="attendance.html"><i>&#128197;</i> Attendance</a>
+                <a href="employees.html"><i>&#128101;</i> Employees</a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="header" id="attendance-header">Attendance - <span id="date"></span></div>
+    
+            <table>
+                <thead>
+                    <tr>
+                        <th>Employee ID</th>
+                        <th>Name</th>
+                        <th>Status</th>
+                        <th>Punch In</th>
+                        <th>Punch Out</th>
+                        <th>Total Hours</th>
+                        <th>EMP Status</th>
+                    </tr>
+                </thead>
+                <tbody id="employee-list">
+                    <!-- Sample Data Row for Present Employee -->
+                    <tr>
+                        <td>U001</td>
+                        <td>John Doe</td>
+                        <td class="status present">Present</td>
+                        <td>09:00 AM</td>
+                        <td>05:00 PM</td>
+                        <td>8 hrs</td>
+                        <td><button class="action-btn" disabled>Mark Present</button></td>
+                    </tr>
+                    <!-- Sample Data Row for Absent Employee -->
+                    <tr>
+                        <td>U002</td>
+                        <td>Jane Smith</td>
+                        <td class="status absent">Absent</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><button class="action-btn" onclick="markPresent(this)">Mark Present</button></td>
+                    </tr>
+                    <!-- Sample Data Row for Present Employee -->
+                    <tr>
+                        <td>U003</td>
+                        <td>Michael Johnson</td>
+                        <td class="status present">Present</td>
+                        <td>09:00 AM</td>
+                        <td>05:00 PM</td>
+                        <td>8 hrs</td>
+                        <td><button class="action-btn" disabled>Mark Present</button></td>
+                    </tr>
+                    <!-- Sample Data Row for Absent Employee -->
+                    <tr>
+                        <td>U004</td>
+                        <td>Alice Brown</td>
+                        <td class="status absent">Absent</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><button class="action-btn" onclick="markPresent(this)">Mark Present</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer style="background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0)); color: white; text-align: center; padding: 15px 0; font-size: 14px; margin-top: auto; width: 100%; box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.2);">
+        &copy; 2025 Codeplux Technologies. All rights reserved.
+    </footer>
+
+    <script>
+        // Get today's date and format it
+        const today = new Date();
+        const formattedDate = today.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        });
+
+        // Inject the formatted date into the header
+        document.getElementById('date').textContent = formattedDate;
+
+        // Function to mark an absent employee as present
+        function markPresent(button) {
+            const row = button.closest('tr');
+            const statusCell = row.querySelector('.status');
+            statusCell.textContent = 'Present';
+            statusCell.classList.remove('absent');
+            statusCell.classList.add('present');
+            button.disabled = true; // Disable the button after marking as present
+            button.textContent = 'Marked Present'; // Change button text
+        }
+    </script>
+
+</body>
+</html>

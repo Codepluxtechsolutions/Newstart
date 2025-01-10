@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f3f6fc;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #333;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white; 
+            padding: 15px 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        header img {
+            height: 60px;
+        }
+        header h1 {
+            font-size: 1.8em;
+            font-family: 'Georgia', serif;
+            color: rgb(31, 153, 190);
+            flex: 1;
+            text-align: center;
+        }
+        .profile-container {
+            position: relative;
+        }
+        .profile-icon {
+            font-size: 1.5em;
+            cursor: pointer;
+            border: 2px solid #333;
+            border-radius: 50%;
+            padding: 5px;
+            background: #eee;
+        }
+        .dropdown {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            display: none;
+            width: 150px;
+            text-align: left;
+            z-index: 100;
+        }
+        .dropdown a, .dropdown span {
+            display: block;
+            padding: 10px 15px;
+            font-size: 14px;
+            text-decoration: none;
+            color: #333;
+        }
+        .dropdown a:hover {
+            background-color: #f0f0f0;
+        }
+        .dropdown span {
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+        }
+        .profile-container:hover .dropdown {
+            display: block;
+        }
+        .container {
+            display: flex;
+            flex: 1;
+            margin-top: 20px; 
+        }
+        .sidebar {
+            width: 250px;
+            background: #0047ab;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #fff;
+            padding-bottom: 10px;
+            width: 80%;
+            text-align: center;
+        }
+        .nav-links {
+            width: 100%;
+        }
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s;
+            text-align: left;
+            border-radius: 8px;
+        }
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .nav-links a i {
+            font-size: 18px;
+            background: #fff;
+            color: #0047ab;
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            width: 100%;
+            overflow-y: auto;
+            max-height: 600px;
+        }
+        .form-container h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-container .section h3 {
+            color: #007bff;
+            font-size: 20px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 5px;
+        }
+        .form-container .form-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .form-container .form-group label {
+            width: 40%;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+        .form-container .form-group input,
+        .form-container .form-group select,
+        .form-container .form-group textarea {
+            width: 55%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s ease;
+        }
+        .form-container .form-group input:focus,
+        .form-container .form-group select:focus,
+        .form-container .form-group textarea:focus {
+            outline: none;
+            border-color: #007bff;
+            background-color: #fff;
+        }
+        .form-container textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        .form-container button {
+            padding: 14px 20px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                padding: 10px;
+            }
+            .content {
+                padding: 10px;
+            }
+            .form-container {
+                max-height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="CSS/logo1.jpg" alt="Company Logo">
+        <h1>Codeplux Technologies</h1>
+        <div class="profile-container">
+            <div class="profile-icon">&#128100;</div>
+            <div class="dropdown">
+                <span>Admin Name</span>
+                <a href="profile.html">Profile</a>
+                <a href="logout.html">Logout</a>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="sidebar">
+            <h2><a href="Admin_dashboard.html" style="text-decoration: none; color: white;">Admin Panel</a></h2>
+            <div class="nav-links">
+                <a href="attendance.html"><i>&#128197;</i> Attendance</a>
+                <a href="employees.html"><i>&#128101;</i> Employees</a>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="form-container">
+                <h2>Employee Registration</h2>
+                <form action="/submit_employee" method="POST" enctype="multipart/form-data">
+                    <div class="section">
+                        <h3>Personal Details</h3>
+                        <div class="form-group">
+                            <label for="full_name">Full Name</label>
+                            <input type="text" id="full_name" name="full_name" placeholder="Enter full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" id="dob" name="dob" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select id="gender" name="gender" required>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter phone number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="Enter email address" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <textarea id="address" name="address" placeholder="Enter your address" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="pan_number">PAN Number</label>
+                            <input type="text" id="pan_number" name="pan_number" placeholder="Enter PAN number" required>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3>Profile Details</h3>
+                        <div class="form-group">
+                            <label for="emp_id">Employee ID</label>
+                            <input type="text" id="emp_id" name="emp_id" placeholder="Enter employee ID" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="job_title">Job Title</label>
+                            <input type="text" id="job_title" name="job_title" placeholder="Enter job title" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="department">Department</label>
+                            <select id="department" name="department" required>
+                                <option value="hr">HR</option>
+                                <option value="it">IT</option>
+                                <option value="finance">Finance</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="doj">Date of Joining</label>
+                            <input type="date" id="doj" name="doj" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="profile_picture">Profile Picture</label>
+                            <input type="file" id="profile_picture" name="profile_picture" required>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3>Bank Details</h3>
+                        <div class="form-group">
+                            <label for="bank_name">Bank Name</label>
+                            <input type="text" id="bank_name" name="bank_name" placeholder="Enter bank name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="account_no">Account Number</label>
+                            <input type="text" id="account_no" name="account_no" placeholder="Enter account number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ifsc">IFSC Code</label>
+                            <input type="text" id="ifsc" name="ifsc" placeholder="Enter IFSC code" required>
+                        </div>
+                    </div>
+
+                    <button type="submit">Register Employee</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer style="background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0)); color: white; text-align: center; padding: 15px 0; font-size: 14px; margin-top: auto; width: 100%; box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.2);">
+        &copy; 2025 Codeplux Technologies. All rights reserved.
+    </footer>
+</body>
+</html>

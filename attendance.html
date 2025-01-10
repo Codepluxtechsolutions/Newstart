@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f3f6fc;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #333;
+        }
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white; 
+            padding: 15px 20px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        header img {
+            height: 60px;
+        }
+        header h1 {
+            font-size: 1.8em;
+            font-family: 'Georgia', serif;
+            color: rgb(31, 153, 190);
+            flex: 1;
+            text-align: center;
+        }
+        .profile-container {
+            position: relative;
+        }
+        .profile-icon {
+            font-size: 1.5em;
+            cursor: pointer;
+            border: 2px solid #333;
+            border-radius: 50%;
+            padding: 5px;
+            background: #eee;
+        }
+        .dropdown {
+            position: absolute;
+            top: 40px;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            display: none;
+            width: 150px;
+            text-align: left;
+            z-index: 100;
+        }
+        .dropdown a, .dropdown span {
+            display: block;
+            padding: 10px 15px;
+            font-size: 14px;
+            text-decoration: none;
+            color: #333;
+        }
+        .dropdown a:hover {
+            background-color: #f0f0f0;
+        }
+        .dropdown span {
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+        }
+        .profile-container:hover .dropdown {
+            display: block;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+            margin-top: 20px; 
+        }
+        .sidebar {
+            width: 250px;
+            background: #0047ab;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            box-shadow: 4px 0 6px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar h2 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #fff;
+            padding-bottom: 10px;
+            width: 80%;
+            text-align: center;
+        }
+        .nav-links {
+            width: 100%;
+        }
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: all 0.3s;
+            text-align: left;
+            border-radius: 8px;
+        }
+        .nav-links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .nav-links a i {
+            font-size: 18px;
+            background: #fff;
+            color: #0047ab;
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+        .main-content h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #0047ab;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .options-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .option-card {
+            flex: 1;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+        }
+        .option-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #0047ab;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="CSS/logo1.jpg" alt="Company Logo">
+        <h1>Codeplux Technologies</h1>
+        <div class="profile-container">
+            <div class="profile-icon">&#128100;</div>
+            <div class="dropdown">
+                <span>Admin Name</span>
+                <a href="profile.html">Profile</a>
+                <a href="logout.html">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="sidebar">
+            <h2><a href="Admin_dashboard.html" style="text-decoration: none; color: white;">Admin Panel</a></h2>
+            <div class="nav-links">
+                <a href="attendance.html"><i>&#128197;</i> Attendance</a>
+                <a href="employees.html"><i>&#128101;</i> Employees</a>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <h2>Attendance</h2>
+            <div class="options-container">
+                <div class="option-card" onclick="window.location.href='daily_attendance.html';">
+                    <h3>Daily Attendance</h3>
+                    <p>View attendance records for today.</p>
+                </div>
+                <div class="option-card" onclick="window.location.href='monthly_attendance.html';">
+                    <h3>Monthly/Yearly Attendance</h3>
+                    <p>View monthly and yearly attendance summaries.</p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <footer style="background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0)); color: white; text-align: center; padding: 15px 0; font-size: 14px; margin-top: auto; width: 100%; box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.2);">
+        &copy; 2025 Codeplux Technologies. All rights reserved.
+    </footer>
+
+    <script>
+        // Function to load content into iframe
+        function loadAttendancePage(page) {
+            const frame = document.getElementById('content-frame');
+            frame.src = page;
+        }
+    </script>
+</body>
+</html>

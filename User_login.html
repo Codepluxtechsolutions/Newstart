@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Login Form</title>
+   <!-- Font Awesome CSS for eye icon -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   
+   <header>
+      <img src="CSS/logo1.jpg" alt="Company Logo">
+      <h1>Codeplux Technologies</h1>
+      <div class="profile-container">
+          <div class="profile-icon">&#128100;</div>
+          <div class="dropdown">
+              <span></span>
+              
+          </div>
+      </div>
+  </header>
+   <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
+* {
+   font-family: 'Poppins', sans-serif;
+   margin: 0; 
+   padding: 0;
+   box-sizing: border-box;
+   outline: none; 
+   border: none;
+   text-decoration: none;
+}
+
+body {
+   background-color: #f4f4f9;
+   display: flex;
+   flex-direction: column;
+   min-height: 100vh;
+}
+
+.form-container {
+   flex: 1;
+   display: flex;
+   align-items: flex-start; /* Align items to the top */
+   justify-content: center;
+   padding: 20px;
+   padding-bottom: 60px; /* Space for the footer */
+}
+
+.form-container form {
+   padding: 30px;
+   border-radius: 10px;
+   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+   background: #fff;
+   text-align: center;
+   width: 100%;
+   max-width: 450px;
+}
+
+.form-container form h3 {
+   font-size: 24px;
+   text-transform: uppercase;
+   margin-bottom: 20px;
+   color: #333;
+}
+
+.form-container form input,
+.form-container form select {
+   width: 100%;
+   padding: 12px 15px;
+   font-size: 16px;
+   margin: 10px 0;
+   background: white;
+   border-radius: 5px;
+   border: 1px solid #ddd;
+   transition: background 0.3s ease;
+   color: #333;
+}
+
+.form-container form select option {
+   background: #fff;
+   color: #333;
+}
+
+.form-container form .form-btn {
+   background: #8e44ad; /* Purple color */
+   color: #fff;
+   text-transform: capitalize;
+   font-size: 18px;
+   padding: 12px;
+   margin-top: 10px;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   transition: background 0.3s ease;
+}
+
+.password-container {
+   position: relative;
+   display: flex;
+   align-items: center;
+}
+
+.password-container input {
+   width: calc(100% - 40px); /* Adjust width to make room for the eye icon */
+}
+
+.password-container .fa {
+   position: absolute;
+   right: 10px;
+   cursor: pointer;
+   color: #888;;
+
+}
+header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background: white; 
+          padding: 15px 20px;
+          box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+      }
+      header img {
+          height: 60px;
+      }
+      header h1 {
+          font-size: 1.8em;
+          font-family: 'Georgia', serif;
+          color: rgb(31, 153, 190);
+          flex: 1;
+          text-align: center;
+      }
+      .profile-container {
+          position: relative;
+      }
+      .profile-icon {
+          font-size: 1.5em;
+          cursor: pointer;
+          border: 2px solid #333;
+          border-radius: 50%;
+          padding: 5px;
+          background: #eee;
+      }
+   </style>
+   
+    
+</head>
+<body>
+<div class="form-container">
+   <form id="loginForm">
+      <h3> USER LOGIN</h3>
+      
+      <input type="email" name="email" id="email" required placeholder="Username">
+      
+      <div class="password-container">
+         <input type="password" name="password" id="password" required placeholder="Password" 
+                pattern="^(?=.[A-Za-z])(?=.\d)(?=.*[@#$%^&+=!])[A-Za-z\d@#$%^&+=!]{10,}$" 
+                title="Password must be at least 10 characters long and contain letters, numbers, and at least one special character (@, #, $, %, ^, &, +, =, !)">
+         <i class="fa fa-eye-slash" id="togglePassword"></i>
+      </div>
+      
+      <button type="button" class="form-btn" onclick="handleLogin()">Login Now</button>
+   </form>
+</div>
+
+<script>
+   // Show/hide password logic
+   const togglePassword = document.getElementById('togglePassword');
+   const passwordInput = document.getElementById('password');
+   togglePassword.addEventListener('click', () => {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      togglePassword.classList.toggle('fa-eye');
+      togglePassword.classList.toggle('fa-eye-slash');
+   });
+
+   // Handle login with redirection to user_dashboard.html
+   function handleLogin() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      // Hardcoded credentials for validation
+      const user = { email: "employee@example.com", password: "Employee@123" };
+
+      // Validate credentials
+      if (user.email === email && user.password === password) {
+         alert("Login successful!");
+         // Redirect to user_dashboard.html
+         window.location.href = "user_dashboard.html";
+      } else {
+         alert("Invalid credentials. Please try again.");
+      }
+   }
+</script>
+<footer style="background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0)); color: white; text-align: center; padding: 15px 0; font-size: 14px; margin-top: auto; width: 100%; box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.2);">
+   &copy; 2025 Codeplux Technologies. All rights reserved.
+</footer>
+</body>
+</html>
