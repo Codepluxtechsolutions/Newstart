@@ -4,9 +4,21 @@
    <meta charset="UTF-8">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Login Form</title>
+   <title>--Index Codeplux--</title>
    <!-- Font Awesome CSS for eye icon -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   
+   <header>
+      <img src="CSS/logo1.jpg" alt="Company Logo">
+      <h1>Codeplux Technologies</h1>
+      <div class="profile-container">
+         <a href="Admin_login.html"><div class="profile-icon">&#128100;</div></a>
+          <div class="dropdown">
+             
+              
+          </div>
+      </div>
+  </header>
    <style>
       @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap');
 * {
@@ -97,7 +109,7 @@ body {
    position: absolute;
    right: 10px;
    cursor: pointer;
-   color: #888;
+   color: #888;;
 
 }
 header {
@@ -130,21 +142,13 @@ header {
           background: #eee;
       }
    </style>
-
-<header>
-   <img src="CSS/logo1.jpg" alt="Company Logo">
-   <h1>Codeplux Technologies</h1>
-   <div class="profile-container">
-      <a href="index.html"><div class="profile-icon">&#128100;</div></a>
-
-       
-   </div>
-</header>
+   
+    
 </head>
 <body>
 <div class="form-container">
    <form id="loginForm">
-      <h3> ADMIN LOGIN</h3>
+      <h3> USER LOGIN</h3>
       
       <input type="email" name="email" id="email" required placeholder="Username">
       
@@ -176,13 +180,13 @@ header {
       const password = document.getElementById('password').value.trim();
 
       // Hardcoded credentials for validation
-      const user = { email: "admin@example.com", password: "Admin@123" };
+      const user = { email: "employee@example.com", password: "Employee@123" };
 
       // Validate credentials
       if (user.email === email && user.password === password) {
          alert("Login successful!");
          // Redirect to user_dashboard.html
-         window.location.href = "admin_dashboard.html";
+         window.location.href = "user_dashboard.html";
       } else {
          alert("Invalid credentials. Please try again.");
       }
